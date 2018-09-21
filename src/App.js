@@ -1,41 +1,49 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import { BeerList } from './components';
 import './App.css';
 
 
 class App extends Component {
-  componentDidMount(){
-    // let url = "//lcboapi.com/products";
-    // let headers = { "Content-Type": "application/json" };
-    // let token = "";
-    let headers = {"Authorization": "Token MDo1MTc5ZTExOC1iN2M2LTExZTgtYjdmMS03N2FjMmRiMmZhZWE6c293aWFiWkFtMGtzTVFRa25pU1Z4WWZheTdCSkF1YXZ6ZG02"}
-    return (
-      fetch("//lcboapi.com/products?where=is_seasonal", { headers })
-        // function getBeer() {
-        // return fetch({`${url}$?where=is_seasonal`})
-        .then(response => response.json())
-        .then(responseJson => {
-          return responseJson.result;
-        })
-        .catch(error => {
-          console.error(error);
-        })
-    );
-    // }
-    // getBeer();
+  constructor() {
+    super();
+    this.state = {
+      beers: []
+    }
   }
+  componentDidMount() {
+    let headers = { "Authorization": "Token MDo1MTc5ZTExOC1iN2M2LTExZTgtYjdmMS03N2FjMmRiMmZhZWE6c293aWFiWkFtMGtzTVFRa25pU1Z4WWZheTdCSkF1YXZ6ZG02" };
+    fetch("//lcboapi.com/products?where=is_seasonal", { headers /*, body */ })
+      .then(response => response.json())
+      .then(responseJson => {
+        // console.log(responseJson);
+        let beers = responseJson.map((result, index) => {
+          return <div key={index}>
+            <img src={result.image_thumb_url} alt="" />
+            <p>{result.name}</p>
+            <p>{result.producer_name}</p>
+          </div>;
+        }
+        )
+        this.setState(beers);
+        console.log("state", this.state.beers);
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
   render() {
-    return (
-      <div className="App">
+    return <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+        <div>
+         {/* <BeerList/> */}
+          {/* This is another test
+          {this.state.beers}
+          {this.state.dummyBeers.map(index => <li key={index}>{index.name}</li>)} */}
+        </div>
+      </div>;
   }
 }
 
