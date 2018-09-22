@@ -1,14 +1,12 @@
-import { Component /*, styled*/ } from 'react';
+import React, { Component /*, styled*/ } from 'react';
+import axios from "axios";
 
 class BeerList extends Component {
-    constructor() {
-        super();
-        this.state = {
-            beers: []
-        }    
+    state = {
+        beers: []
     }
     componentDidMount() {
-        // let headers = { "Authorization": "Token MDo1MTc5ZTExOC1iN2M2LTExZTgtYjdmMS03N2FjMmRiMmZhZWE6c293aWFiWkFtMGtzTVFRa25pU1Z4WWZheTdCSkF1YXZ6ZG02" };
+        let headers = { "Authorization": "Token MDo1MTc5ZTExOC1iN2M2LTExZTgtYjdmMS03N2FjMmRiMmZhZWE6c293aWFiWkFtMGtzTVFRa25pU1Z4WWZheTdCSkF1YXZ6ZG02" };
         // fetch("//lcboapi.com/products?where=is_seasonal", { headers /*, body */ })
         //     .then(response => response.json())
         //     .then(responseJson => {
@@ -22,17 +20,24 @@ class BeerList extends Component {
         //         }
         //         )
         //         this.setState(beers);
-        //         // console.log("state", this.state.beers);
+        //         console.log("state", this.state.beers);
         //     })
         //     .catch(error => {
         //       console.error(error);
         //     })
-        console.log("TEST");
+
+        axios
+          .get(`//lcboapi.com/products?where=is_seasonal`, headers)
+          .then(res => {
+            const beers = res.data;
+            this.setState({ beers });
+          });
     }
     render() {
-        return
+        return(
+          <h1>THIS IS BEERLIST COMPONENT</h1>
         //   {this.state.beers}
-        // console.log("Another");
+        )
     }
 }
 

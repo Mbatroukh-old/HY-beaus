@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://mbatroukh.github.io/HY-beaus/",
   "dependencies": {
+    "axios": "^0.18.0",
     "gh-pages": "^1.2.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
